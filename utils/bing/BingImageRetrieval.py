@@ -21,11 +21,22 @@ from utils.bing.core.AerialImageRetrieval import AerialImageRetrieval
 
 class BingImageRetrieval():
 
+    IMAGE_QUALLITY = "high" # others possibility "medium" or "low"
+
     def __init__(self,myFile,xmin,xmax,ymin,ymax):
         self.filename = myFile
         jpegFile = NamedTemporaryFile(suffix=".jpeg").name
         f = open(myFile,"w")
         f.close()
+
+        if self.IMAGE_QUALLITY == "high" :
+            AerialImageRetrieval.IMAGEMAXSIZE = 8192 * 8192 * 8
+
+        if self.IMAGE_QUALLITY == "medium" :
+            AerialImageRetrieval.IMAGEMAXSIZE = 4192 * 4192 * 8
+
+        if self.IMAGE_QUALLITY == "low" :
+            AerialImageRetrieval.IMAGEMAXSIZE = 1192 * 1192 * 8
 
         imgretrieval = AerialImageRetrieval(ymin,xmin,ymax,xmax,jpegFile)
 
